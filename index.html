@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="javascript" href="./assets/javascript/game.js">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <title>Word Guess</title>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Guess That Character! </h1>
+            <p class="lead">Use the keyboard to guess the letters in the Nintendo characters name.
+                If you can guess the character correctly, you win! if you make more than 6 incorrect guesses, you lose!
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="jumbotron">
+                    <h2>YOUR GUESS: <span id="word"><strong>...</strong></span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h2><span id="totalWord"><strong>...</strong></span></h2>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3>Remaining Guesses:<span id="guessesLeft"><strong> </strong></span></h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3>Total Guesses:<span id="guessesTotal"><strong> </strong></span></h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</head>
+
+<body>
+
+    <script>
+
+
+
+
+
+
+        var character = ["mario", "yoshi", "peach", "bowser", "luigi", "kirby"];
+        //allowable incorrect guesses
+        var wrongGuess = 6;
+        //choosing a random character
+        var cpChoice = character[Math.floor(Math.random() * character.length)];
+        //breaking the random chosen character down into an array
+        var characterArr = cpChoice.split("");
+
+        var totalGuess = 0;
+
+        console.log(cpChoice);
+        console.log(characterArr);
+        console.log(characterArr[0]);
+
+        var word = document.getElementById("word");
+        var remainingGuesses = document.getElementById("guessesLeft");
+        var guessesTotal = document.getElementById("guessesTotal");
+
+
+        totalWord = [];
+        for (var i = 0; i < characterArr.length; i++) {
+            totalWord[i] = " _ ";
+        }
+
+        console.log(totalWord);
+        document.getElementById("totalWord").innerHTML = totalWord;
+
+
+        document.onkeyup = function (event) {
+            word.textContent = event.key;
+            totalGuess = totalGuess + 1;
+            guessesTotal.textContent = totalGuess;
+
+            for (var i = 0; i < characterArr.length; i++) {
+
+
+                if (word.textContent === characterArr[i]) {
+                    console.log(word.textContent);
+                    totalWord[i] = word.textContent;
+                    console.log(totalWord[i]);
+                    document.getElementById("totalWord").innerHTML = totalWord;
+                }
+
+                if (word.textContent != characterArr[i]) {
+                    wrongGuess = (wrongGuess - 1);
+
+                    remainingGuesses.textContent = wrongGuess;
+                    console.log(wrongGuess);
+                }
+
+            }
+
+
+
+        };
+
+        // blankCharArr = [];
+        // for (var i = 0; i < characterArr.length; i++) {
+        //     blankCharArr[i] = "_ ";
+        // }
+
+        // var remainingLetters = characterArr.length;
+
+        // while (remainingLetters > 0) {
+        //     document.write(blankCharArr);
+        // }
+
+
+
+
+
+
+
+        //     if (event.key === characterArr[i]) {
+        //         document.write(characterArr[i])
+        //     }
+
+
+        // };
+
+
+            // document.onkeyup = function (event) {
+            //     var x = event.key
+            //     document.write(x);
+
+
+
+
+            // for (var i = 0; i < characterArr.length; i++) {
+
+            //     document.onkeyup = function (event) {
+            //         var x = event.key
+            //         document.write(x);
+
+            //         if (x === characterArr[i]) {
+            //             document.write(characterArr[i]);
+
+            //             console.log(x);
+            //         }
+
+            //         else {
+            //             var guessesLeft = (wrongGuess - 1);
+            //             document.write(guessesLeft);
+
+            //             console.log(guessesLeft);
+            //         }
+
+            //     };
+
+            // }
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
