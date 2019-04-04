@@ -109,7 +109,7 @@
         }
 
         console.log(totalWord);
-        document.getElementById("totalWord").innerHTML = totalWord;
+        document.getElementById("totalWord").innerHTML = totalWord.join(" ");
 
 
         document.onkeyup = function (event) {
@@ -138,7 +138,7 @@
 
                     totalWord[i] = word.textContent;
                     console.log(totalWord[i]);
-                    document.getElementById("totalWord").innerHTML = totalWord;
+                    document.getElementById("totalWord").innerHTML = totalWord.join(" ");
                 }
 
 
