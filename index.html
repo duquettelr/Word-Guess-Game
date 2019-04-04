@@ -28,6 +28,7 @@
             <div class="col-md-offset-2 col-md-8">
                 <div class="jumbotron">
                     <h2>YOUR GUESS: <span id="word"><strong>...</strong></span></h2>
+                    <p id="word2"></p>
                 </div>
             </div>
         </div>
@@ -81,8 +82,14 @@
         var cpChoice = character[Math.floor(Math.random() * character.length)];
         //breaking the random chosen character down into an array
         var characterArr = cpChoice.split("");
-
+        var yourGuess = [""];
         var totalGuess = 0;
+
+        var word = document.getElementById("word");
+        var remainingGuesses = document.getElementById("guessesLeft");
+        var guessesTotal = document.getElementById("guessesTotal");
+        var word2 = document.getElementById("word2");
+
 
         console.log(cpChoice);
         console.log(characterArr);
@@ -91,6 +98,9 @@
         var word = document.getElementById("word");
         var remainingGuesses = document.getElementById("guessesLeft");
         var guessesTotal = document.getElementById("guessesTotal");
+        var word2 = document.getElementById("word2");
+
+
 
 
         totalWord = [];
@@ -104,31 +114,68 @@
 
         document.onkeyup = function (event) {
             word.textContent = event.key;
+            word2.textContent = event.key;
             totalGuess = totalGuess + 1;
             guessesTotal.textContent = totalGuess;
+            yourGuess.push(word2.textContent);
+            console.log(yourGuess);
+            document.getElementById("word2").innerHTML = yourGuess.toString();
+
+            var bool = false;
+            // in loop if match set bool = 1
+            // outside end of loop if bool == false 
+            var boolLetterPool = false;
 
             for (var i = 0; i < characterArr.length; i++) {
 
 
                 if (word.textContent === characterArr[i]) {
                     console.log(word.textContent);
+
+                    var bool = true;
+                    // wrongGuess = wrongGuess + 0;
+                    // remainingGuesses.textContent = wrongGuess;
+
                     totalWord[i] = word.textContent;
                     console.log(totalWord[i]);
                     document.getElementById("totalWord").innerHTML = totalWord;
                 }
 
-                if (word.textContent != characterArr[i]) {
-                    wrongGuess = (wrongGuess - 1);
 
-                    remainingGuesses.textContent = wrongGuess;
-                    console.log(wrongGuess);
-                }
+            };
 
+            if (bool != true) {
+                wrongGuess = wrongGuess - 1;
+
+                remainingGuesses.textContent = wrongGuess;
+                console.log(wrongGuess);
+            }
+
+            if (bool == true) {
+                wrongGuess = wrongGuess;
+                remainingGuesses.textContent = wrongGuess;
             }
 
 
+            var arrCheck = false;
+
+            // for (var j = 0; j < totalWord.length; j++) {
+            //     if (totalWord = " _ ") {
+            //         console.log("helpme");
+            //     }
+
+            // }
+
+            if (yourGuess.length === (characterArr.length + 1) || wrongGuess === 0) {
+                location.reload();
+            }
+
+            // if ()
+
 
         };
+
+
 
         // blankCharArr = [];
         // for (var i = 0; i < characterArr.length; i++) {
