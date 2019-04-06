@@ -1,0 +1,48 @@
+
+
+body {
+
+    background: green;
+
+}
+
+.jumbotron h1 {
+
+    color: rgb(243, 228, 16);
+    font-weight: bold;
+
+}
+
+.jumbotron {
+
+    background: rgb(20, 20, 194);
+    border: 40px;
+    border-style: solid;
+    border-color:rgb(202, 56, 56);
+
+}
+
+p {
+
+    color: rgb(243, 220, 16);
+    font-weight: bold;
+
+}
+
+h2 {
+
+    color: rgb(243, 228, 16);
+    font-weight: bold;
+
+}
+
+h3 {
+
+    color: rgb(243, 228, 16);
+    font-weight: bold;
+
+}
+
+button #reset .btn-danger {
+    color: rgb(206, 34, 34);
+}

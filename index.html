@@ -18,7 +18,8 @@
         <div class="container">
             <h1 class="display-4">Guess That Character! </h1>
             <p class="lead">Use the keyboard to guess the letters in the Nintendo characters name.
-                If you can guess the character correctly, you win! if you make more than 6 incorrect guesses, you lose!
+                If you can guess the character correctly, you win! if you make more than 6 incorrect guesses, you lose.
+                Press the "Reset" button to start!
             </p>
         </div>
     </div>
@@ -26,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                <div class="jumbotron">
+                <div class="jumbotron2">
                     <h2>YOUR GUESS: <span id="word"><strong>...</strong></span></h2>
                     <p id="word2"></p>
                 </div>
@@ -64,177 +65,141 @@
 
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3>Total Wins:<span id="totalWins"><strong> </strong></span></h3>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <button id="reset" type="button" class="btn btn-danger">Reset</button>
+            </div>
+        </div>
+
+    </div>
+
 </head>
 
 <body>
 
     <script>
 
+        var wins = 0;
+
+        function game() {
 
 
+            var character = ["mario", "yoshi", "peach", "bowser", "luigi", "kirby"];
+
+            var wrongGuess = 6;
+
+            var cpChoice = character[Math.floor(Math.random() * character.length)];
+
+            var characterArr = cpChoice.split("");
+            var yourGuess = [""];
+            var totalGuess = 0;
+
+            var word = document.getElementById("word");
+            var remainingGuesses = document.getElementById("guessesLeft");
+            var guessesTotal = document.getElementById("guessesTotal");
+            var word2 = document.getElementById("word2");
+            var totalWord = [];
+            var totalWins = document.getElementById("totalWins");
 
 
-
-        var character = ["mario", "yoshi", "peach", "bowser", "luigi", "kirby"];
-        //allowable incorrect guesses
-        var wrongGuess = 6;
-        //choosing a random character
-        var cpChoice = character[Math.floor(Math.random() * character.length)];
-        //breaking the random chosen character down into an array
-        var characterArr = cpChoice.split("");
-        var yourGuess = [""];
-        var totalGuess = 0;
-
-        var word = document.getElementById("word");
-        var remainingGuesses = document.getElementById("guessesLeft");
-        var guessesTotal = document.getElementById("guessesTotal");
-        var word2 = document.getElementById("word2");
+            console.log(cpChoice);
+            console.log(characterArr);
+            console.log(characterArr[0]);
 
 
-        console.log(cpChoice);
-        console.log(characterArr);
-        console.log(characterArr[0]);
-
-        var word = document.getElementById("word");
-        var remainingGuesses = document.getElementById("guessesLeft");
-        var guessesTotal = document.getElementById("guessesTotal");
-        var word2 = document.getElementById("word2");
-
-
-
-
-        totalWord = [];
-        for (var i = 0; i < characterArr.length; i++) {
-            totalWord[i] = " _ ";
-        }
-
-        console.log(totalWord);
-        document.getElementById("totalWord").innerHTML = totalWord.join(" ");
-
-
-        document.onkeyup = function (event) {
-            word.textContent = event.key;
-            word2.textContent = event.key;
-            totalGuess = totalGuess + 1;
-            guessesTotal.textContent = totalGuess;
-            yourGuess.push(word2.textContent);
-            console.log(yourGuess);
-            document.getElementById("word2").innerHTML = yourGuess.toString();
-
-            var bool = false;
-            // in loop if match set bool = 1
-            // outside end of loop if bool == false 
-            var boolLetterPool = false;
 
             for (var i = 0; i < characterArr.length; i++) {
+                totalWord[i] = " _ ";
+            }
+
+            console.log(totalWord);
+            document.getElementById("totalWord").innerHTML = totalWord.join(" ");
+
+            document.onkeyup = function main(event) {
+                word.textContent = event.key;
+                word2.textContent = event.key;
+                if (yourGuess.indexOf(event.key) !== -1) {
+                    return;
+                }
+
+                totalGuess = totalGuess + 1;
+                guessesTotal.textContent = totalGuess;
+                yourGuess.push(word2.textContent);
+                console.log(yourGuess);
+                document.getElementById("word2").innerHTML = yourGuess.toString();
+
+                var bool = false;
+                var boolLetterPool = false;
+
+                for (var i = 0; i < characterArr.length; i++) {
+                    if (word.textContent === characterArr[i]) {
+                        console.log(word.textContent);
+
+                        var bool = true;
+
+                        totalWord[i] = word.textContent;
+                        console.log(totalWord[i]);
+                        document.getElementById("totalWord").innerHTML = totalWord.join(" ");
+                    }
+                };
 
 
-                if (word.textContent === characterArr[i]) {
-                    console.log(word.textContent);
-
-                    var bool = true;
-                    // wrongGuess = wrongGuess + 0;
-                    // remainingGuesses.textContent = wrongGuess;
-
-                    totalWord[i] = word.textContent;
-                    console.log(totalWord[i]);
-                    document.getElementById("totalWord").innerHTML = totalWord.join(" ");
+                if (totalWord.indexOf(" _ ") === -1) {
+                    wins = wins + 1;
+                    document.getElementById("totalWins").innerHTML = wins;
                 }
 
 
-            };
+                if (bool != true) {
+                    wrongGuess = wrongGuess - 1;
 
-            if (bool != true) {
-                wrongGuess = wrongGuess - 1;
+                    remainingGuesses.textContent = wrongGuess;
+                    console.log(wrongGuess);
+                }
 
-                remainingGuesses.textContent = wrongGuess;
-                console.log(wrongGuess);
+                if (bool === true) {
+                    wrongGuess = wrongGuess;
+                    remainingGuesses.textContent = wrongGuess;
+                }
+
+                if (wrongGuess === 0) {
+                    game();
+                    document.getElementById("word2").innerHTML = "";
+                    document.getElementById("word").innerHTML = "...";
+                    wrongGuess = 0;
+                    totalWord = [""];
+                    totalGuess = 0;
+                    document.getElementById("guessesTotal").innerHTML = 0;
+
+                }
+
+
+
+
             }
 
-            if (bool == true) {
-                wrongGuess = wrongGuess;
-                remainingGuesses.textContent = wrongGuess;
-            }
 
 
-            var arrCheck = false;
-
-            // for (var j = 0; j < totalWord.length; j++) {
-            //     if (totalWord = " _ ") {
-            //         console.log("helpme");
-            //     }
-
-            // }
-
-            if (yourGuess.length === (characterArr.length + 1) || wrongGuess === 0) {
-                location.reload();
-            }
-
-            // if ()
 
 
         };
 
 
-
-        // blankCharArr = [];
-        // for (var i = 0; i < characterArr.length; i++) {
-        //     blankCharArr[i] = "_ ";
-        // }
-
-        // var remainingLetters = characterArr.length;
-
-        // while (remainingLetters > 0) {
-        //     document.write(blankCharArr);
-        // }
-
-
-
-
-
-
-
-        //     if (event.key === characterArr[i]) {
-        //         document.write(characterArr[i])
-        //     }
-
-
-        // };
-
-
-            // document.onkeyup = function (event) {
-            //     var x = event.key
-            //     document.write(x);
-
-
-
-
-            // for (var i = 0; i < characterArr.length; i++) {
-
-            //     document.onkeyup = function (event) {
-            //         var x = event.key
-            //         document.write(x);
-
-            //         if (x === characterArr[i]) {
-            //             document.write(characterArr[i]);
-
-            //             console.log(x);
-            //         }
-
-            //         else {
-            //             var guessesLeft = (wrongGuess - 1);
-            //             document.write(guessesLeft);
-
-            //             console.log(guessesLeft);
-            //         }
-
-            //     };
-
-            // }
-
-
-
-
+        document.getElementById("reset").onclick = function () {
+            game();
+        };
 
 
 
@@ -242,9 +207,6 @@
 
 
     </script>
-
-
-
 </body>
 
 </html>
