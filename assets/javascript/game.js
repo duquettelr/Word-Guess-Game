@@ -1,7 +1,5 @@
 
 
-
-
 var wins = 0;
 
 function game() {
@@ -24,17 +22,9 @@ function game() {
     var totalWord = [];
     var totalWins = document.getElementById("totalWins");
 
-
     console.log(cpChoice);
     console.log(characterArr);
     console.log(characterArr[0]);
-
-    // var word = document.getElementById("word");
-    // var remainingGuesses = document.getElementById("guessesLeft");
-    // var guessesTotal = document.getElementById("guessesTotal");
-    // var word2 = document.getElementById("word2");
-
-
 
     for (var i = 0; i < characterArr.length; i++) {
         totalWord[i] = " _ ";
@@ -116,21 +106,9 @@ function game() {
 
 };
 
-// function emptyYourGuess() {
-//     document.getElementById("word2").innerHTML = "";
-//     document.getElementById("word").innerHTML = "...";
-//     wrongGuess = 0;
-//     totalWord = [""];
-//     totalGuess = 0;
-
-// }
 
 document.getElementById("reset").onclick = function () {
     game();
 };
 
-
-
-
-
-
+game();
